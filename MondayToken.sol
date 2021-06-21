@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0 or later
 
 /**
- * Submitted for verification at BscScan.com on 2021-05-28
+ * Submitted for verification at BscScan.com on 2021-06-21
  * /
+
 /**
     @@@@@@@@@            @@@@@@@@@@
     @@@@@@@@@@   @      @@@@@@@@@@@ @
@@ -23,19 +24,24 @@
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   @
                                                                                                                                          @
       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
     # MONDAY
+
     Great features:
     2% fee auto add to the liquidity pool to lock forever when selling
     3% fee auto distribute to all holders
     5% fee auto swaped with BNB and move to Monday Investment fund
+
     When sell token:
     5% fee auto burn
+
     When buy token:
     5% fee auto swaped with BNB and move to donation wallet.
+
     Official site: https://monday.land
  */
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.5;
 
 abstract contract Context {
 
@@ -54,7 +60,10 @@ abstract contract Context {
      * @dev Returns message content
      */
     function _msgData() internal view virtual returns (bytes memory) {
-        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
+        // silence state mutability warning without generating bytecode
+        // see https://github.com/ethereum/solidity/issues/2691
+        this;
+
         return msg.data;
     }
 }
@@ -649,7 +658,7 @@ contract MondayToken is Ownable, IBEP20 {
     }
 
     constructor () {
-        _reflectOwned[_ownerAddress] = _reflectTotal;
+        _reflectOwned[_msgSender()] = _reflectTotal;
 
         // PancakeSwap Router address:
         // (BSC testnet) 0xD99D1c33F9fC3444f8101754aBC46c52416550D1
@@ -667,13 +676,13 @@ contract MondayToken is Ownable, IBEP20 {
         _isExcludedFromFee[owner()] = true;
         _isExcludedFromFee[address(this)] = true;
         _isExcludedFromFee[_pancakeFactory] = true;
-        _isExcludedFromFee[_ownerAddress] = true;
+        _isExcludedFromFee[owner()] = true;
         _isExcludedFromFee[_mondayInvestmentFund] = true;
         _isExcludedFromFee[_marketingDev] = true;
         _isExcludedFromFee[_mondayArGame] = true;
         _isExcludedFromFee[_service] = true;
 
-        emit Transfer(address(0), _ownerAddress, _tokenTotal);
+        emit Transfer(address(0), _msgSender(), _tokenTotal);
     }
 
     /**
@@ -701,7 +710,7 @@ contract MondayToken is Ownable, IBEP20 {
      * @dev Returns the bep token owner.
      */
     function getOwner() external override view returns (address) {
-        return _ownerAddress;
+        return owner();
     }
 
     function totalSupply() external view override returns (uint256) {
