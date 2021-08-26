@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0 or later
 
 /**
- * Submitted for verification at BscScan.com on 2021-06-21
- * /
-/**
     @@@@@@@@@            @@@@@@@@@@
     @@@@@@@@@@   @      @@@@@@@@@@@ @
     @@@@@@@@@@@@  @    @@@@@@@@@@@@ @
@@ -39,7 +36,7 @@
     Official site: https://monday.land
  */
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.7;
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
@@ -816,10 +813,10 @@ contract MondayToken is Context, IERC20, Ownable {
     mapping (address => bool) private _isExcluded;
     address[] private _excluded;
 
-    address private _mondayInvestmentFund = 0xA7482C9c5926E88d85804A969c383730Ce100639;
-    address private _donationWalletAddress = 0xA7482C9c5926E88d85804A969c383730Ce100639;
-    address private _mondayArGameWalletAddress = 0x85D117cD3C10a44f26896ebbB84C4181D051fD08;
-    address private _serviceWalletAddress = 0x5cCCb537f3CAf12ca138614a3f5756124cA2094f;
+    address private _mondayInvestmentFund = 0x91DfAb5Ef444d0A0AAe7D4105371A751faE7dba8;
+    address private _donationWalletAddress = 0x785Db213D3Ec54F03F9b8f1a9B1a60E675CDfF49;
+    address private _mondayArGameWalletAddress = 0x4651098d2C30A951FD42889a77c03726E78C55bb;
+    address private _serviceWalletAddress = 0x4Eb5299444F227AD12472224535A51daA4CD38CF;
 
     uint256 private constant MAX = ~uint256(0);
     uint256 private _tTotal = 1 * 10**15 * 10**10;
@@ -880,13 +877,13 @@ contract MondayToken is Context, IERC20, Ownable {
     }
 
     constructor () {
-         _rOwned[_msgSender()] = _rTotal;
+        _rOwned[_msgSender()] = _rTotal;
 
         // PancakeSwap Router address:
         // (BSC testnet) 0xD99D1c33F9fC3444f8101754aBC46c52416550D1
         // (BSC mainnet) V2 0x10ED43C718714eb63d5aA57B78B54704E256024E
         // (Uniswap) V2 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D
-        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
+        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
          // Create a uniswap pair for this new token
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory()).createPair(address(this), _uniswapV2Router.WETH());
 
