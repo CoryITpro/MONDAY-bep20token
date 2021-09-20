@@ -1128,9 +1128,7 @@ contract MondayToken is Context, IERC20, Ownable {
         
         if (sender.isContract() != true && recipient.isContract() != true) {
             _tTotal = _tTotal - tFundOrBurn;
-            
-            _maxTxAmount = _tTotal.mul(_maxTxPercent).div(10**2);
-            _maxWalletAmount = _tTotal.mul(_maxWalletPercent).div(10**(2 + _maxWalletDecimal));
+            _rTotal = _rTotal - rFundOrBurn;
         } else {
             _rOwned[_donationWalletAddress] = _rOwned[_donationWalletAddress].add(rFundOrBurn);
             if(_isExcluded[_donationWalletAddress])
